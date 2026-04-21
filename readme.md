@@ -113,3 +113,5 @@ ik heb vandaag mijn readme aangevuld,
 # BronneLijst
 - ChatGPT voor lineargradient & box-shadows
 - calc() methode Sanne
+- https://fonts.google.com/selection?query=pacifico 
+- https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js
