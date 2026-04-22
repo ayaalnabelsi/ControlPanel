@@ -115,3 +115,9 @@ ik heb vandaag mijn readme aangevuld,
 - calc() methode Sanne
 - https://fonts.google.com/selection?query=pacifico 
 - https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js
+- https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js
+- https://prismic.io/blog/css-text-animations
+- https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/repeating-linear-gradient
+- https://fonts.googleapis.com/css2?family=Righteous&display=swap"
+
+

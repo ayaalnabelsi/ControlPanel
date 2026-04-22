@@ -39,10 +39,8 @@
 main {
   position: absolute;
   width: calc(var(--maat) * 70);
-  height: calc(var(--maat) * 124);
-  padding: calc(var(--maat) * 1);
+  height: calc(var(--maat) * 130);
   aspect-ratio: 1;
-  padding-bottom: 0;
   margin-top: 5em;
   justify-self: center;
   display: grid;
@@ -61,9 +59,10 @@ main {
   border-bottom-left-radius: 0.6em;
 }
 
+/*Main color*/
 html:has(input[value="aan"]:checked) main,
 html:has(input[value="aan"]:checked) header {
-  background-color: #f7d6f0; /* zachte koffie/roze vibe */
+  background-color: #f7d6f0;
   transition: background-color 0.6s ease;
 }
 
@@ -86,13 +85,13 @@ html:has(input[value="aan"]:checked) header {
 /* glow als machine aan staat  */
 /*********/
 html:has(input[value="aan"]:checked) main {
-  box-shadow: 0 0 0.6em #f000fc,
+  box-shadow: 0 0 0.6em #00eaff,
     inset 0.1em 0.1em 0.3em rgba(255, 255, 255, 0.6),
     inset -0.1em -0.1em 0.3em rgba(58, 60, 56, 0.8);
 }
 
 /*********/
-/* TITLE*/
+/* Title*/
 /*********/
 .liquid-title svg {
   width: 100%;
@@ -101,10 +100,16 @@ html:has(input[value="aan"]:checked) main {
   font-weight: bold;
 }
 
+/*********/
+/* Title color*/
+/*********/
 html:has(input[value="aan"]:checked) header h1 {
   filter: drop-shadow(0 0 6px #6f4e37) drop-shadow(0 0 12px #cfa87f);
 }
 
+/*********/
+/* Title transition*/
+/*********/
 header h1:hover {
   transform: scale(1.1);
   transition: transform 0.2s ease, color 0.2s ease;
@@ -118,7 +123,6 @@ header {
   grid-area: header;
   background-color: var(--main-color);
   color: var(--button-text);
-  transition: all 0.2s ease;
   border-top-left-radius: 1.2em;
   border-top-right-radius: 1.2em;
 
@@ -127,7 +131,6 @@ header {
       inset -0.2em -0.2em 0.4em rgba(0, 0, 0, 0.4);
     /*ChatGPT*/
     border-radius: 0.7em;
-    padding: calc(var(--maat) * 1.5);
     width: 92%;
     display: flex;
     margin-inline: auto;
@@ -158,16 +161,16 @@ header {
         box-shadow: inset 0.1em 0.1em 0.3em rgba(255, 255, 255, 0.3),
           inset -0.1em -0.1em 0.3em rgba(0, 0, 0, 0.9);
         /*ChatGPT*/
-        transition: all 0.2s ease;
         border-radius: 50%;
       }
     }
   }
 }
 
-@media (min-width: 48em) {
+@media (min-width: 40em) {
   div:first-of-type {
-    width: 95%;
+    width: 100%;
+    padding: 0.2em;
   }
 
   header ul {
@@ -175,9 +178,8 @@ header {
     margin: 1em;
   }
 }
-
 /*********/
-/*Koffiekeuze licht*/
+/*label als machine aan is*/
 /*********/
 html:has(input[value="aan"]:checked) header label {
   background: var(--koffiebutton-aan-color);
@@ -188,30 +190,15 @@ html:has(input[value="aan"]:checked) header label {
 }
 
 /*********/
-/*Knoppen styling*/
+/*Knoppen  als machine uit*/
 /*********/
 header:has(:checked) label:not(:has(:checked)) {
   color: rgb(255, 255, 255);
   interactivity: inert;
   /*maakt een element volledig niet interactief*/
   font-weight: 900;
-}
-
-/*********/
-/*INTERACTIEVE KNOPPEN DIMMEN/
-/*********/
-header:has(input:checked) label:not(:has(input:checked)) {
   opacity: 0.5;
   filter: grayscale(0.6);
-}
-
-/*Knopeen gedimt als machine uit is*/
-html:has(main > label:last-of-type input:not(:checked)) header label,
-html:has(main > label:last-of-type input:not(:checked)) section label {
-  pointer-events: none;
-  opacity: 0.4;
-  filter: grayscale(1);
-  cursor: not-allowed;
 }
 
 /*********/
@@ -230,13 +217,16 @@ koffie {
   background: var(--coffee-color);
   border-radius: 0 0 1em 1em;
   animation-play-state: paused;
-  /* animation: wave 6s ease-in-out infinite; */
 }
 
+
+/*********/
 /*koffie niet zichtbaar als machine niet aan is*/
+/*********/
 html:has(main > label:last-of-type input:not(:checked)) koffie {
   animation-play-state: paused;
   transform: scaleY(0);
+  /*maak het element helemaal plat in de hoogte*/
   opacity: 0;
 }
 
@@ -304,7 +294,9 @@ main::after {
   top: var(--rook-start);
 }
 
+/*********/
 /* rook alleen bij koffie */
+/*********/
 html:has(input[value="espresso"]:checked),
 html:has(input[value="cappuccino"]:checked),
 html:has(input[value="latte"]:checked) {
@@ -337,10 +329,9 @@ html:has(input[value="latte"]:checked) {
 label input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
-  -moz-appearance: none;
+  /*niet de standaard browserstijl gebruiken*/
   width: 100%;
   height: 100%;
-  margin: 0;
   cursor: pointer;
   position: absolute;
   top: 0;
@@ -351,31 +342,31 @@ html:has(section label input[value="Stop"]:checked) section label {
   background: red !important;
   color: white;
   box-shadow: 0 0 0.8em red;
-
   animation: stopPulse 2s ease-in-out 1;
   animation-fill-mode: forwards;
   /*Blijft hangen in de laatste stand*/
 }
 
 @keyframes stopPulse {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.06); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-/* alles terug naar normaal als machine uit is */
-html:has(input[value="aan"]:not(:checked)) section label {
-  animation: none !important;
-  box-shadow: inset 0.2em 0.2em 0.4em rgba(255, 255, 255, 0.6),
-              inset -0.2em -0.2em 0.4em rgba(0, 0, 0, 0.4);
-  background: var(--button-color);
-  color: var(--button-text);
-  transform: none;
-}
-
-html:has(input[value="espresso"]:checked):not(:has(section label input[value="Stop"]:checked)) section label,
-html:has(input[value="cappuccino"]:checked):not(:has(section label input[value="Stop"]:checked)) section label,
-html:has(input[value="latte"]:checked):not(:has(section label input[value="Stop"]:checked)) section label {
+/*********/
+/*STOP KNOP Wanneer een button ingeklikt is*/
+/*********/
+html:has(
+    input:is([value="espresso"], [value="cappuccino"], [value="latte"]):checked
+  ):not(:has(input[value="Stop"]:checked))
+  section
+  label {
   background: green;
   box-shadow: 0 0 0.6em green;
   color: white;
@@ -383,7 +374,8 @@ html:has(input[value="latte"]:checked):not(:has(section label input[value="Stop"
 }
 
 @keyframes coffeePulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     box-shadow: 0 0 0.4em green;
   }
@@ -393,14 +385,21 @@ html:has(input[value="latte"]:checked):not(:has(section label input[value="Stop"
   }
 }
 
- /* koffie  en rook stop */
- html:has(section label input[value="Stop"]:checked) koffie,
- html:has(section label input[value="Stop"]:checked) main::before,
- html:has(section label input[value="Stop"]:checked) main::after {
-   animation: none !important;
-   opacity: 0;
-   transform: scaleY(0);
- }
+@media (min-width: 20em) {
+  section label {
+    padding-inline: 1.5em;
+  }
+}
+/*********/
+/* koffie  en rook  bij stop */
+/*********/
+html:has(section label input[value="Stop"]:checked) koffie,
+html:has(section label input[value="Stop"]:checked) main::before,
+html:has(section label input[value="Stop"]:checked) main::after {
+  animation: none !important;
+  opacity: 0;
+  transform: scaleY(0);
+}
 
 section {
   position: relative;
@@ -429,10 +428,10 @@ section {
   }
 
   @media (min-width: 48em) {
-   label{
-    width: calc(var(--maat) * 9);
-    height: calc(var(--maat) * 7);
-  }
+    label {
+      width: calc(var(--maat) * 9);
+      height: calc(var(--maat) * 7);
+    }
   }
 
   /*********/
@@ -456,7 +455,7 @@ section {
     div:nth-of-type(1) {
       width: calc(var(--maat) * 10);
     }
-   }
+  }
 
   /*********/
   /*ACHTERGROND MIDDEN*/
@@ -475,8 +474,7 @@ section {
 
 @media (min-width: 48em) {
   div:nth-of-type(2) {
-  height: calc(var(--maat) * 28);
-  margin-inline: 1em;
+    height: calc(var(--maat) * 32);
   }
 }
 
@@ -488,8 +486,8 @@ span {
   align-self: end;
   justify-self: center;
   display: block;
-  width: calc(var(--maat) * 20);
-  height: calc(var(--maat) * 20);
+  width: calc(var(--maat) * 22);
+  height: calc(var(--maat) * 22);
   margin-bottom: 0.1em;
   background-color: var(--kopje-color);
   border-bottom-left-radius: 1.5em;
@@ -525,15 +523,14 @@ span::after {
 
 @media (min-width: 48em) {
   span {
-    width: calc(var(--maat) * 13);
-    height: calc(var(--maat) * 14);
+    width: calc(var(--maat) * 15);
+    height: calc(var(--maat) * 15);
   }
   span::after {
     right: calc(var(--maat) * -6);
     top: calc(var(--maat) * 2.3);
   }
 }
-
 
 footer {
   grid-area: footer;
@@ -544,9 +541,18 @@ footer {
   /*********/
   div:nth-of-type(1) {
     background-color: var(--extrastyling-color);
-    width: calc(var(--maat) * 72);
+    width: calc(var(--maat) * 70);
     height: calc(var(--maat) * 2);
-    margin-left: 1em;
+    display: flex;
+    justify-items: center;
+    margin-left: 1.7em;
+  }
+
+  @media (min-width: 48em) {
+    div:nth-of-type(1) {
+      margin-left: -0.6em;
+
+    }
   }
 
   /*********/
@@ -558,32 +564,29 @@ footer {
     border-bottom-right-radius: 1em;
     border-bottom-left-radius: 1em;
     height: 5vh;
-    background: repeating-linear-gradient(
-      90deg,
-      var(--lekbak-color) 0px,
-      color-mix(in srgb, var(--lekbak-color), black 20%) 9px
+    background-image: repeating-linear-gradient(
+      to bottom,
+      #eb8bdf,
+      #d83cc6 7%,
+      rgb(100 100 100) 10%
     );
+    /*https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/gradient/repeating-linear-gradient*/
     margin-inline: calc(var(--maat) * -5);
   }
 }
 
-@media (min-width: 48em) {
-  footer div:nth-of-type(1) {
-    margin-left: 0.6em;
-  }
-
-  footer div:nth-of-type(2) {
-    width: calc((var(--maat) * 88));
-    height: calc(var(--maat) * 7);
-    margin-left: calc(var(--maat) * -4);
-    background: repeating-linear-gradient(
-      88deg,
-      var(--lekbak-color) 0px,
-      var(--lekbak-color) 31px,
-      transparent 20px,
-      transparent 36px
-    );
-  }
+footer div:nth-of-type(2) {
+  width: calc((var(--maat) * 88));
+  height: calc(var(--maat) * 7);
+  margin-left: calc(var(--maat) * -4);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    89deg,
+    #eb8bdf,
+    #d83cc6 7%,
+    transparent 20px,
+    transparent 36px
+  );
 }
 
 /*********/
@@ -620,6 +623,14 @@ main > label:last-of-type {
   }
 }
 
+@media (min-width: 20em) {
+  main > label:last-of-type {
+    padding: 0.3em;
+    margin-top: 0.5em;
+    padding-inline: 0.6em;
+  }
+}
+
 /* knoppen niet klikbaar als machine uit is */
 html:has(main > label:last-of-type input:not(:checked)) header label,
 html:has(main > label:last-of-type input:not(:checked)) section label {
@@ -628,10 +639,7 @@ html:has(main > label:last-of-type input:not(:checked)) section label {
   filter: grayscale(1);
 }
 
-
-
-
-
-
-
-
+label:has(input[value="aan"]:checked) {
+  background: green;
+  color: white;
+}
